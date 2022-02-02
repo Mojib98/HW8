@@ -1,22 +1,41 @@
 package models;
 
-
 import models.enumoration.TypeUser;
 
-public abstract class User {
+public abstract class  User {
     private int id;
-    private String fullName,nationalId,password;
-    TypeUser typeUser;
+    private String fullName,nationalId,address;
+    int password;
+    float budget;
+    String typeUser;
 
-    public User() {
+    public User(int id, String fullName, String nationalId, int password, String typeUser) {
     }
 
-    public User(int id, String fullName, String nationalId, String password, TypeUser typeUser) {
+    public User(int id, String fullName, String nationalId, String address, int password, float budget, String typeUser) {
         this.id = id;
         this.fullName = fullName;
         this.nationalId = nationalId;
+        this.address = address;
         this.password = password;
+        this.budget = budget;
         this.typeUser = typeUser;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public float getBudget() {
+        return budget;
+    }
+
+    public void setBudget(float budget) {
+        this.budget = budget;
     }
 
     public int getId() {
@@ -43,19 +62,19 @@ public abstract class User {
         this.nationalId = nationalId;
     }
 
-    public String getPassword() {
+    public int getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(int password) {
         this.password = password;
     }
 
-    public TypeUser getTypeUser() {
+    public String getTypeUser() {
         return typeUser;
     }
 
-    public void setTypeUser(TypeUser typeUser) {
+    public void setTypeUser(String typeUser) {
         this.typeUser = typeUser;
     }
 }
