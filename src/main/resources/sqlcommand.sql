@@ -9,5 +9,11 @@ CREATE TABLE IF NOT EXISTS userstore
     address    varchar(50),
     budget     float
 );
-
+CREATE TABLE IF NOT EXISTS Product(
+    adminId integer,
+    categoryId integer,
+    nameProduct varchar(20),
+    numberProduct integer,
+    price float
+);
 

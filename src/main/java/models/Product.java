@@ -3,13 +3,13 @@ package models;
 public class Product {
     private int id,adminId,categoryId,brandId,number;
     private String name;
-    private double price;
+    private float price;
 
-    public Product(int id, int adminId, int categoryId, int brandId, int number, String name, double price) {
+    public Product(int id, int adminId, int number, String name, float price) {
         this.id = id;
         this.adminId = adminId;
-        this.categoryId = categoryId;
-        this.brandId = brandId;
+        //this.categoryId = categoryId;
+      //  this.brandId = brandId;
         this.number = number;
         this.name = name;
         this.price = price;
@@ -63,14 +63,25 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
     public Product() {
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", adminId=" + adminId +
+                ", number=" + number +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
