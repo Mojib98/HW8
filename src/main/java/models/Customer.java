@@ -4,9 +4,9 @@ import models.enumoration.TypeUser;
 
 public class Customer extends User{
     private String address;
-    private long budget;
+    private double budget;
 
-    public Customer(int id, String fullName, String nationalId, String password, TypeUser typeUser, String address, long budget) {
+    public Customer(int id, String fullName, String nationalId, String password, TypeUser typeUser, String address, double budget) {
         super(id, fullName, nationalId, password, typeUser);
         this.address = address;
         this.budget = budget;
@@ -23,11 +23,11 @@ public class Customer extends User{
         this.address = address;
     }
 
-    public long getBudget() {
+    public double getBudget() {
         return budget;
     }
 
-    public void setBudget(long budget) {
+    public void setBudget(double budget) {
         this.budget = budget;
     }
 }
