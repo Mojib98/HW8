@@ -12,23 +12,31 @@ import java.util.List;
 
 public class CategoryRepository implements Repository<Category> {
     PreparedStatement preparedStatement;
-    Connection connection = Singleton.getInstance().getConnection();
+    Connection connection;
 
     public CategoryRepository() throws SQLException, ClassNotFoundException {
+        connection = Singleton.getInstance().getConnection();
     }
 
     @Override
-    public int add(Category category) throws SQLException {
-        String sql = "INSERT INTO category(parentId,nameCategory) VALUES(?.?)";
-        preparedStatement=connection.prepareStatement(sql);
-        preparedStatement.setInt(1,category.getParentId());
-        preparedStatement.setString(2,category.getName());
-        return preparedStatement.executeUpdate();
+    public int add(Category category) {
+        try {
 
+            String sql = "INSERT INTO category(parentId,nameCategory) VALUES(?.?)";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, category.getParentId());
+            preparedStatement.setString(2, category.getName());
+            return preparedStatement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
-    public List<Category> findAll() throws SQLException {
+    public List<Category> findAll()  {
+        try {
+
         Category category;
         List<Category> list=new ArrayList<Category>();
         String sql = "SELECT * FROM category";
@@ -40,10 +48,13 @@ public class CategoryRepository implements Repository<Category> {
             category = new Category(id,name);
             list.add(category);
         }
-        return list;    }
+        return list;    }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;}
 
     @Override
-    public int update(Category category) throws SQLException {
+    public int update(Category category)  {
         return 0;
     }
 
