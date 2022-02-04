@@ -11,18 +11,24 @@ import java.util.Scanner;
 public class ProductService implements Service<Product> {
     Scanner scanner = new Scanner(System.in);
     Product product;
+    private int adminId;
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
+    }
+
     @Override
     public int add() throws SQLException {
         System.out.println("insert id");
         int id = scanner.nextInt();
         System.out.println("please insert name");
         String name = scanner.next();
-        int admin = scanner.nextInt();
+       // int admin = scanner.nextInt();
         System.out.println("insert number");
         int num = scanner.nextInt();
         System.out.println("insert price");
         float price = scanner.nextFloat();
-        product=new Product(id,admin,num,name,price);
+        product=new Product(id,adminId,num,name,price);
         return 0;
     }
 

@@ -35,11 +35,17 @@ public class AdminService implements Service<Admin> {
     @Override
     public List<Admin> findAll() {
         try {
-            return adminRepository.findAll();
+            List<Admin> list= adminRepository.findAll();
+            list.toString();
+            for (Admin m:list
+                 ) {
+                System.out.println(m);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        return null;
     }
 
     @Override

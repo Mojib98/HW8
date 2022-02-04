@@ -53,6 +53,17 @@ public abstract class User {
         return typeUser;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", nationalId='" + nationalId + '\'' +
+                ", password=" + password +
+                ", typeUser='" + typeUser + '\'' +
+                '}';
+    }
+
     public void setTypeUser(String typeUser) {
         this.typeUser = typeUser;
     }

@@ -33,17 +33,19 @@ public class AdminRepository implements Repository<Admin>{
     public List<Admin> findAll() throws SQLException {
         Admin admin;
         List<Admin> list=new ArrayList<Admin>();
-        String sql = "SELECT * FROM userstore";
+        String sql = "SELECT * FROM userstore " +
+                "WHERE kind = 'ADMIN'";
         preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
-            int id =resultSet.getInt(1);
-            String name = resultSet.getString(2);
-            String nationalId=resultSet.getString(3);
-            int password = resultSet.getInt(4);
-            String type=resultSet.getString(5);
+            int id =resultSet.getInt(2);
+            String name = resultSet.getString(3);
+            String nationalId=resultSet.getString(4);
+            int password = resultSet.getInt(5);
+            String type=resultSet.getString(6);
             admin = new Admin(id,name,nationalId,password,type);
             list.add(admin);
+            System.out.println(admin);
         }
         return list;
     }

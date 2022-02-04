@@ -5,4 +5,6 @@ public class Admin extends User {
         super(id, fullName, nationalId, password, typeUser);
     }
 
+
+
 }

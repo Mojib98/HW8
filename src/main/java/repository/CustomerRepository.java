@@ -20,15 +20,16 @@ public class CustomerRepository implements Repository<Customer> {
 
     @Override
     public int add(Customer custumer) throws SQLException {
-        String sql="INSERT INTO userstore(fullName,nationalId,password" +
-                ",kind,address,budget) VALUES(?,?,?,?,?,?);";
+        String sql="INSERT INTO userstore(IdUser,fullName,nationalId,password" +
+                ",kind,address,budget) VALUES(?,?,?,?,?,?,?);";
         preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,custumer.getFullName());
-        preparedStatement.setString(2,custumer.getNationalId());
-        preparedStatement.setInt(3,custumer.getPassword());
-        preparedStatement.setString(4,custumer.getTypeUser());
-        preparedStatement.setString(4,custumer.getAddress());
-        preparedStatement.setFloat(5,custumer.getBudget());
+        preparedStatement.setInt(1,custumer.getId());
+        preparedStatement.setString(2,custumer.getFullName());
+        preparedStatement.setString(3,custumer.getNationalId());
+        preparedStatement.setInt(4,custumer.getPassword());
+        preparedStatement.setString(5,"CUSTOMER");
+        preparedStatement.setString(6,custumer.getAddress());
+        preparedStatement.setFloat(7,custumer.getBudget());
         return preparedStatement.executeUpdate();
     }
 

@@ -11,9 +11,14 @@ import java.util.List;
 import java.util.Random;
 
 public class ProdoctRepository implements Repository<Product>
+
 {
+
     Connection connection = Singleton.getInstance().getConnection();
     PreparedStatement preparedStatement;
+
+    public ProdoctRepository() throws SQLException, ClassNotFoundException {
+    }
 
     @Override
     public int add(Product product) throws SQLException {
