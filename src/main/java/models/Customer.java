@@ -1,8 +1,6 @@
 package models;
 
-import models.enumoration.TypeUser;
-
-public class Customer extends User{
+public class Customer extends Custumer {
     private String address;
     private float budget;
 

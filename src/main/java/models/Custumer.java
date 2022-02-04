@@ -1,18 +1,16 @@
 package models;
 
-import models.enumoration.TypeUser;
-
-public abstract class  User {
+public abstract class Custumer {
     private int id;
     private String fullName,nationalId,address;
     int password;
     float budget;
     String typeUser;
 
-    public User(int id, String fullName, String nationalId, int password, String typeUser) {
+    public Custumer(int id, String fullName, String nationalId, int password, String typeUser) {
     }
 
-    public User(int id, String fullName, String nationalId, String address, int password, float budget, String typeUser) {
+    public Custumer(int id, String fullName, String nationalId, String address, int password, float budget, String typeUser) {
         this.id = id;
         this.fullName = fullName;
         this.nationalId = nationalId;

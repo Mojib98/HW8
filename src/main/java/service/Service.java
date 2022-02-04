@@ -1,12 +1,15 @@
 package service;
 
+import models.Admin;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Service <T>{
-     int add(T t);
+     int add() throws SQLException;
     List<T> findAll();
-    int update(T t);
-    int delete(int id);
+    int update();
+    int delete();
 
 
 
