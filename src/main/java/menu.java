@@ -31,7 +31,13 @@ public class menu {
             singUp();
         }
         else {
-
+                if (login()){
+                    if (this.id>100){
+                        admin();
+                    }
+                    else
+                        customer();
+                }
 
         }
 
