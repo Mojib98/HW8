@@ -15,6 +15,11 @@ CustomerBasket customerBasket;
 CustomerBasketService customerBasketService;
 CustomerBasketRepository customerBasketRepository;
 private int customerId;
+private float totalPrice;
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
 
     public int getCustomerId() {
         return customerId;
@@ -28,6 +33,7 @@ private int customerId;
         productService = new ProductService();
         scanner=new Scanner(System.in);
         customerBasketRepository = new CustomerBasketRepository();
+        totalPrice = 0;
     }
 
     @Override
@@ -40,6 +46,7 @@ private int customerId;
             customerBasket = productService.giveproduce(id, number);
             customerBasket.setNumber(number);
             customerBasket.setIdCustomer(this.customerId);
+            totalPrice +=customerBasket.Price()*number;
             return customerBasketRepository.add(customerBasket);
 
         } catch (SQLException e) {

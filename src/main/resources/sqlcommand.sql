@@ -24,3 +24,11 @@ CREATE TABLE IF NOT EXISTS customerBasket(
     numberProduct integer ,
     price float
 )
+CREATE TABLE IF NOT EXISTS saleProduct(
+    id serial,
+    customerId integer,
+    productId integer,
+    numberProduct integer,
+    price float,
+    datesell date
+);
