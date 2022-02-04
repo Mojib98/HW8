@@ -41,9 +41,6 @@ public class CategoryService implements Service<Category> {
             category = new Category(brand, name);
             categoryRepository.add(category);
             return 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
         } catch (Exception s) {
             s.printStackTrace();
             return 0;
@@ -62,11 +59,7 @@ public class CategoryService implements Service<Category> {
             System.out.println();
         }
         return null;
-    }catch (SQLException e){
-            e.printStackTrace();
-            return null;
-        }
-        catch (Exception e){
+    } catch (Exception e){
             e.printStackTrace();
             return null;
         }}

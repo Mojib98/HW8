@@ -12,16 +12,18 @@ import java.util.List;
 
 public class CustomerRepository implements Repository<Customer> {
     PreparedStatement preparedStatement;
-    Connection connection = Singleton.getInstance().getConnection();
+    Connection connection ;
 
 
     public CustomerRepository() throws SQLException, ClassNotFoundException {
+        connection = Singleton.getInstance().getConnection();
     }
 
     @Override
-    public int add(Customer custumer) throws SQLException {
+    public int add(Customer custumer) {
         String sql="INSERT INTO userstore(IdUser,fullName,nationalId,password" +
                 ",kind,address,budget) VALUES(?,?,?,?,?,?,?);";
+        try{
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,custumer.getId());
         preparedStatement.setString(2,custumer.getFullName());
@@ -31,12 +33,17 @@ public class CustomerRepository implements Repository<Customer> {
         preparedStatement.setString(6,custumer.getAddress());
         preparedStatement.setFloat(7,custumer.getBudget());
         return preparedStatement.executeUpdate();
-    }
+    }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }}
 
 
     @Override
-    public List<Customer> findAll() throws SQLException {
+    public List<Customer> findAll() {
         Customer custumer;
+        try {
+
         List<Customer> list=new ArrayList<Customer>();
         String sql = "SELECT * FROM userstore";
         preparedStatement = connection.prepareStatement(sql);
@@ -54,11 +61,14 @@ public class CustomerRepository implements Repository<Customer> {
             list.add(custumer);
         }
         return list;
-    }
+    }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }}
 
 
     @Override
-    public int update(Customer custumer) throws SQLException {
+    public int update(Customer custumer)  {
         return 0;
     }
 

@@ -2,13 +2,22 @@ package models;
 
 public class CustomerBasket {
     private int idCustomer,idProduct,number;
-    private double totalPrice;
+    private float Price;
+    private String name;
 
-    public CustomerBasket(int idCustomer, int idProduct, int number, double totalPrice) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public CustomerBasket(int idCustomer, int idProduct, int number, float Price) {
         this.idCustomer = idCustomer;
         this.idProduct = idProduct;
         this.number = number;
-        this.totalPrice = totalPrice;
+        this.Price = Price;
     }
 
     public CustomerBasket() {
@@ -38,11 +47,11 @@ public class CustomerBasket {
         this.number = number;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public float Price() {
+        return Price;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setPrice(float totalPrice) {
+        this.Price = totalPrice;
     }
 }

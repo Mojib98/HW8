@@ -4,6 +4,15 @@ public class Product {
     private int id,adminId,categoryId,brandId,number;
     private String name;
     private float price;
+    private int serialId;
+
+    public int getSerialId() {
+        return serialId;
+    }
+
+    public void setSerialId(int serialId) {
+        this.serialId = serialId;
+    }
 
     public Product(int id, int adminId, int number, String name, float price) {
         this.id = id;
@@ -79,9 +88,12 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", adminId=" + adminId +
+                ", categoryId=" + categoryId +
+                ", brandId=" + brandId +
                 ", number=" + number +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", serialId=" + serialId +
                 '}';
     }
 }

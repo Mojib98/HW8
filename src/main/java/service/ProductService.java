@@ -1,5 +1,6 @@
 package service;
 
+import models.CustomerBasket;
 import models.Product;
 import repository.ProdoctRepository;
 
@@ -45,9 +46,7 @@ public class ProductService implements Service<Product> {
         float price = scanner.nextFloat();
         product=new Product(id,this.adminId,num,name,price);
       return   prodoctRepository.add(product);
-    }catch (SQLException e){
-            e.printStackTrace();
-        }catch (Exception e){
+    } catch (Exception e){
             e.printStackTrace();
         }
         return 0;}
@@ -64,10 +63,7 @@ public class ProductService implements Service<Product> {
             System.out.println(p);
         }
 
-    }catch (SQLException e){
-            e.printStackTrace();
-        }
-        catch (Exception r){
+    } catch (Exception r){
             r.printStackTrace();
 
         }
@@ -82,5 +78,8 @@ public class ProductService implements Service<Product> {
     @Override
     public int delete() {
         return 0;
+    }
+    public CustomerBasket giveproduce(int id,int num) throws SQLException {
+            return prodoctRepository.give(id,num);
     }
 }

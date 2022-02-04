@@ -41,9 +41,6 @@ public class AdminService implements Service<Admin> {
             int id = random.ints(4, 10, 99).findFirst().getAsInt();
             admin = new Admin(id, name, nationalId, password, "ADMIN");
             return adminRepository.add(admin);
-        } catch (SQLException e) {
-            System.out.println("wrong in addin");
-            return 0;
         } catch (Exception E) {
             E.printStackTrace();
             return 0;
@@ -58,9 +55,6 @@ public class AdminService implements Service<Admin> {
             ) {
                 System.out.println(m);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
         } catch (Exception e) {
             System.out.println("bad code");
             return null;
@@ -83,9 +77,6 @@ public class AdminService implements Service<Admin> {
             System.out.println("plese insert new password");
             admin = new Admin(id, name, nationalId, password, "ADMIN");
             return adminRepository.update(admin);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
         } catch (Exception s) {
             s.printStackTrace();
             return 0;

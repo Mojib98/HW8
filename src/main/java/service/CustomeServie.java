@@ -42,11 +42,7 @@ private CustomerRepository customerRepository;
         int id = random.ints(4, 100, 200).findFirst().getAsInt();
         customer = new Customer(id,name,national,password,"CUSTUMER",address,10000);
        return customerRepository.add(customer);
-        }catch (SQLException e){
-            e.printStackTrace();
-            return 0;
-        }
-        catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
             return 0;
         }
