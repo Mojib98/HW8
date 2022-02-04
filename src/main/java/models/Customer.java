@@ -1,6 +1,6 @@
 package models;
 
-public class Customer extends Custumer {
+public class Customer extends User {
     private String address;
     private float budget;
 

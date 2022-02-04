@@ -1,40 +1,21 @@
 package models;
 
-public abstract class Custumer {
+public abstract class User {
     private int id;
-    private String fullName,nationalId,address;
+    private String fullName,nationalId;
     int password;
-    float budget;
     String typeUser;
 
-    public Custumer(int id, String fullName, String nationalId, int password, String typeUser) {
-    }
 
-    public Custumer(int id, String fullName, String nationalId, String address, int password, float budget, String typeUser) {
+
+    public User(int id, String fullName, String nationalId,int password, String typeUser) {
         this.id = id;
         this.fullName = fullName;
         this.nationalId = nationalId;
-        this.address = address;
         this.password = password;
-        this.budget = budget;
         this.typeUser = typeUser;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public float getBudget() {
-        return budget;
-    }
-
-    public void setBudget(float budget) {
-        this.budget = budget;
-    }
 
     public int getId() {
         return id;

@@ -21,8 +21,10 @@ public class AdminService implements Service<Admin> {
     public int add() throws SQLException {
         System.out.println("please insert name");
         String name = scanner.next();
+        System.out.println();
         System.out.println("please insert nationalId");
         String nationalId = scanner.next();
+        System.out.println();
         System.out.println("please insert password");
         int password = scanner.nextInt();
         int id = random.ints(4, 10, 99).findFirst().getAsInt();
@@ -41,9 +43,17 @@ public class AdminService implements Service<Admin> {
     }
 
     @Override
-    public int update() {
+    public int update() throws SQLException {
+        System.out.println("please insert name");
+        String name = scanner.next();
+        System.out.println("please insert nationalId");
+        String nationalId = scanner.next();
+        System.out.println("please insert password");
+        int password = scanner.nextInt();
+        System.out.println("please insert id");
+        int id = scanner.nextInt();
         System.out.println("plese insert new password");
-        admin = new Admin();
+        admin = new Admin(id,name,nationalId,password,"ADMIN");
         return adminRepository.update(admin);
     }
 
@@ -58,4 +68,12 @@ public class AdminService implements Service<Admin> {
             return 0;
         }
     }
+    public void addBudget() throws SQLException {
+        System.out.println("plese insert id customer");
+        int id = scanner.nextInt();
+        System.out.println("please insert your buget");
+        float buget = scanner.nextFloat();
+        adminRepository.addBudget(id,buget);
+    }
+
 }

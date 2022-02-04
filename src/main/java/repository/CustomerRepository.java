@@ -1,8 +1,7 @@
 package repository;
 
-import models.Admin;
 import models.Customer;
-import models.Custumer;
+import models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerRepository implements Repository<Custumer> {
+public class CustomerRepository implements Repository<Customer> {
     PreparedStatement preparedStatement;
     Connection connection = Singleton.getInstance().getConnection();
 
@@ -20,7 +19,7 @@ public class CustomerRepository implements Repository<Custumer> {
     }
 
     @Override
-    public int add(Custumer custumer) throws SQLException {
+    public int add(Customer custumer) throws SQLException {
         String sql="INSERT INTO userstore(fullName,nationalId,password" +
                 ",kind,address,budget) VALUES(?,?,?,?,?,?);";
         preparedStatement = connection.prepareStatement(sql);
@@ -33,10 +32,11 @@ public class CustomerRepository implements Repository<Custumer> {
         return preparedStatement.executeUpdate();
     }
 
+
     @Override
-    public List<Custumer> findAll() throws SQLException {
-        Custumer custumer;
-        List<Custumer> list=new ArrayList<Custumer>();
+    public List<Customer> findAll() throws SQLException {
+        Customer custumer;
+        List<Customer> list=new ArrayList<Customer>();
         String sql = "SELECT * FROM userstore";
         preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -55,8 +55,9 @@ public class CustomerRepository implements Repository<Custumer> {
         return list;
     }
 
+
     @Override
-    public int update(Custumer custumer) throws SQLException {
+    public int update(Customer custumer) throws SQLException {
         return 0;
     }
 

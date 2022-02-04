@@ -17,14 +17,16 @@ public class AdminRepository implements Repository<Admin>{
 
     @Override
     public int add(Admin admin) throws SQLException {
-        String sql="INSERT INTO userstore(fullName,nationalId,password" +
-                ",kind) VALUES(?,?,?,?);";
+        String sql="INSERT INTO userstore(IdUser,fullName,nationalId,password" +
+                ",kind) VALUES(?,?,?,?,?);";
         preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,admin.getFullName());
-        preparedStatement.setString(2,admin.getNationalId());
-        preparedStatement.setInt(3,admin.getPassword());
-        preparedStatement.setString(4,admin.getTypeUser());
-        return preparedStatement.executeUpdate();
+        preparedStatement.setInt(1,admin.getId());
+        preparedStatement.setString(2,admin.getFullName());
+        preparedStatement.setString(3,admin.getNationalId());
+        preparedStatement.setInt(4,admin.getPassword());
+        preparedStatement.setString(5,admin.getTypeUser());
+        preparedStatement.execute();
+        return 1;
     }
 
     @Override
@@ -48,7 +50,11 @@ public class AdminRepository implements Repository<Admin>{
 
     @Override
     public int update(Admin admin) throws SQLException {
-        return 0;
+        String sql= "UPDATE userstore set psasword=? where nationaId =?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,admin.getPassword());
+        preparedStatement.setString(2, admin.getNationalId());
+        return preparedStatement.executeUpdate();
     }
 
     @Override
@@ -57,5 +63,12 @@ public class AdminRepository implements Repository<Admin>{
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
         return preparedStatement.executeUpdate();
+    }
+    public void addBudget(int id , float buget) throws SQLException {
+        String sql = "UPDATE usertable set budget = ? where IdUser=?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setFloat(1,buget);
+        preparedStatement.setInt(2,id);
+        preparedStatement.executeUpdate();
     }
 }
