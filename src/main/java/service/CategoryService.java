@@ -11,48 +11,76 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class CategoryService implements Service<Category> {
-    Scanner scanner = new Scanner(System.in);
-    PreparedStatement preparedStatement;
-    Random random = new Random();
-    Category category;
-    CategoryRepository categoryRepository = new CategoryRepository();
+
+    private Scanner scanner;
+    private PreparedStatement preparedStatement;
+    private Random random;
+    private Category category;
+    private CategoryRepository categoryRepository;
 
     public CategoryService() throws SQLException, ClassNotFoundException {
+        try {
+            scanner = new Scanner(System.in);
+            random = new Random();
+            categoryRepository = new CategoryRepository();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public int add() throws SQLException {
-        System.out.println("Plese insert brandId");
-        int brand =scanner.nextInt();
-        System.out.println("insert your name");
-        String name = scanner.next();
-        int id = random.ints(4, 10, 99).findFirst().getAsInt();
-        category = new Category(brand,name);
-        categoryRepository.add(category);
-        return 0;
+    public int add() {
+        try {
+            System.out.println("Plese insert brandId");
+            int brand = scanner.nextInt();
+            System.out.println("insert your name");
+            String name = scanner.next();
+            int id = random.ints(4, 10, 99).findFirst().getAsInt();
+            category = new Category(brand, name);
+            categoryRepository.add(category);
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } catch (Exception s) {
+            s.printStackTrace();
+            return 0;
+        }
     }
-    @Override
-    public List<Category> findAll() throws SQLException {
-        List<Category> list=new ArrayList<Category>();
 
-       list= categoryRepository.findAll();
-        for (Category c:list
-             ) {
-            System.out.print(c.getId() +" ");
+    @Override
+    public List<Category> findAll() {
+        List<Category> list = new ArrayList<Category>();
+        try {
+        list = categoryRepository.findAll();
+        for (Category c : list
+        ) {
+            System.out.print(c.getId() + " ");
             System.out.print(c.getName());
             System.out.println();
         }
         return null;
-    }
+    }catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }}
 
     @Override
-    public int update() throws SQLException {
+    public int update() {
         return 0;
     }
 
     @Override
     public int delete() {
         System.out.println("please insert your id");
-            return 0;
+        return 0;
+
     }
+
 }

@@ -17,6 +17,7 @@ public class AdminRepository implements Repository<Admin>{
 
     @Override
     public int add(Admin admin) throws SQLException {
+        try{
         String sql="INSERT INTO userstore(IdUser,fullName,nationalId,password" +
                 ",kind) VALUES(?,?,?,?,?);";
         preparedStatement = connection.prepareStatement(sql);
@@ -25,9 +26,15 @@ public class AdminRepository implements Repository<Admin>{
         preparedStatement.setString(3,admin.getNationalId());
         preparedStatement.setInt(4,admin.getPassword());
         preparedStatement.setString(5,admin.getTypeUser());
-        preparedStatement.execute();
-        return 1;
-    }
+        return preparedStatement.executeUpdate();
+    }catch (SQLException e){
+            System.out.println("sql wrong in adding");
+            return 0;
+        }
+      catch (Exception e){
+            e.printStackTrace();
+            return 0;
+      }
 
     @Override
     public List<Admin> findAll() throws SQLException {
@@ -45,7 +52,6 @@ public class AdminRepository implements Repository<Admin>{
             String type=resultSet.getString(6);
             admin = new Admin(id,name,nationalId,password,type);
             list.add(admin);
-            System.out.println(admin);
         }
         return list;
     }

@@ -9,15 +9,27 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class CustomeServie implements Service<Customer> {
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
-    CustomerRepository customerRepository = new CustomerRepository();
+private  Scanner scanner;
+private  Random random;
+private CustomerRepository customerRepository;
 
     public CustomeServie() throws SQLException, ClassNotFoundException {
+        try {
+             scanner = new Scanner(System.in);
+             random = new Random();
+             customerRepository = new CustomerRepository();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        catch (Exception e ){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
-    public int add() throws SQLException {
+    public int add() {
+        try{
         Customer customer;
         System.out.println("please insert your name");
         String name=scanner.next();
@@ -29,18 +41,25 @@ public class CustomeServie implements Service<Customer> {
         String address = scanner.next();
         int id = random.ints(4, 100, 200).findFirst().getAsInt();
         customer = new Customer(id,name,national,password,"CUSTUMER",address,10000);
-        customerRepository.add(customer);
-        return 0;
+       return customerRepository.add(customer);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
 
     }
 
     @Override
-    public List<Customer> findAll() throws SQLException {
+    public List<Customer> findAll()  {
         return null;
     }
 
     @Override
-    public int update() throws SQLException {
+    public int update()  {
         return 0;
     }
 
@@ -48,7 +67,7 @@ public class CustomeServie implements Service<Customer> {
     public int delete() {
         return 0;
     }
-    public  void showMyInfo(){
 
-    }
 }
+
+
