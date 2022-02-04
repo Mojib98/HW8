@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface Repository<T> {
-    int add(T t) throws SQLException;
-    List<T> findAll() throws SQLException;
-    int update(T t) throws SQLException;
+    int add(T t) ;
+    List<T> findAll() ;
+    int update(T t) ;
     int delete(int id) throws SQLException;
 }
