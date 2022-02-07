@@ -14,6 +14,7 @@ public class AdminService implements Service<Admin> {
     Admin admin;
     Random random;
     String nationalid;
+    public int id;
 
     public void setNationalid(String nationalid) {
         this.nationalid = nationalid;
@@ -114,9 +115,13 @@ public class AdminService implements Service<Admin> {
         }
     }*/
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void showInfo(){
         try {
-            this.admin =adminRepository.seeMyInfo(this.nationalid);
+            this.admin =adminRepository.seeMyInfo(this.id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

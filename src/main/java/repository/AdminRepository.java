@@ -70,14 +70,13 @@ public class AdminRepository implements Repository<Admin> {
         return preparedStatement.executeUpdate();
     }
 
-    public Admin seeMyInfo(String national) throws SQLException {
+    public Admin seeMyInfo(int id) throws SQLException {
         Admin admin;
-        String sql = "SELECT * FROM userstore WHERE nationalid = ?";
+        String sql = "SELECT * FROM userstore WHERE id = ?";
         preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,national);
+        preparedStatement.setInt(1,id);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        int id = resultSet.getInt(2);
         String name = resultSet.getString(3);
         String nationalId = resultSet.getString(4);
         int password = resultSet.getInt(5);

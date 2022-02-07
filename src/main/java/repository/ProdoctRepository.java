@@ -32,7 +32,7 @@ public class ProdoctRepository implements Repository<Product>
        preparedStatement.setInt(2,product.getId());
        preparedStatement.setString(3,product.getName());
        preparedStatement.setInt(4,product.getNumber());
-       preparedStatement.setFloat(4,product.getPrice());
+       preparedStatement.setFloat(5,product.getPrice());
        return preparedStatement.executeUpdate();
 
     }catch (SQLException e){

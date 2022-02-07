@@ -20,10 +20,9 @@ public class CustomerRepository implements Repository<Customer> {
     }
 
     @Override
-    public int add(Customer custumer) {
+    public int add(Customer custumer) throws SQLException {
         String sql="INSERT INTO userstore(IdUser,fullName,nationalId,password" +
                 ",kind,address,budget) VALUES(?,?,?,?,?,?,?);";
-        try{
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,custumer.getId());
         preparedStatement.setString(2,custumer.getFullName());
@@ -33,17 +32,13 @@ public class CustomerRepository implements Repository<Customer> {
         preparedStatement.setString(6,custumer.getAddress());
         preparedStatement.setFloat(7,custumer.getBudget());
         return preparedStatement.executeUpdate();
-    }catch (SQLException e){
-            e.printStackTrace();
-            return 0;
-        }}
+
+        }
 
 
     @Override
-    public List<Customer> findAll() {
+    public List<Customer> findAll() throws SQLException {
         Customer custumer;
-        try {
-
         List<Customer> list=new ArrayList<Customer>();
         String sql = "SELECT * FROM userstore";
         preparedStatement = connection.prepareStatement(sql);
@@ -56,15 +51,11 @@ public class CustomerRepository implements Repository<Customer> {
             String type=resultSet.getString(6);
             String addres=resultSet.getString(7);
             float budget=resultSet.getFloat(8);
-
             custumer = new Customer(id,name,nationalId,password,type,addres,budget);
             list.add(custumer);
         }
         return list;
-    }catch (SQLException e){
-            e.printStackTrace();
-            return null;
-        }}
+        }
 
 
     @Override
@@ -79,5 +70,20 @@ public class CustomerRepository implements Repository<Customer> {
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
         return preparedStatement.executeUpdate();
+    }
+    public Customer showinfo(int id) throws SQLException {
+        String sql = "SELECT * FROM userstore WHERE id=?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+            String name = resultSet.getString(3);
+            String nationalId=resultSet.getString(4);
+            int password = resultSet.getInt(5);
+            String type=resultSet.getString(6);
+            String addres=resultSet.getString(7);
+            float budget=resultSet.getFloat(8);
+           Customer custumer = new Customer(id,name,nationalId,password,type,addres,budget);
+            return custumer;
     }
 }

@@ -12,16 +12,20 @@ public class CustomeServie implements Service<Customer> {
 private  Scanner scanner;
 private  Random random;
 private CustomerRepository customerRepository;
+private int id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public CustomeServie() throws SQLException, ClassNotFoundException {
         try {
              scanner = new Scanner(System.in);
              random = new Random();
              customerRepository = new CustomerRepository();
-        }catch (SQLException e){
-            e.printStackTrace();
         }
-        catch (Exception e ){
+
+        catch (Exception e){
             e.printStackTrace();
         }
 
@@ -33,9 +37,9 @@ private CustomerRepository customerRepository;
         Customer customer;
         System.out.println("please insert your name");
         String name=scanner.next();
-        System.out.println("plese insert nationalId");
+        System.out.println("please insert nationalId");
         String national = scanner.next();
-        System.out.println("plese set password");
+        System.out.println("please set password");
         int password = scanner.nextInt();
         System.out.println("please insert your address");
         String address = scanner.next();
@@ -61,8 +65,26 @@ private CustomerRepository customerRepository;
 
     @Override
     public int delete() {
-        return 0;
+        try {
+        System.out.println("insert id");
+        int id = scanner.nextInt();
+        return customerRepository.delete(id);
+    }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+
+}
+public void showInfo(){
+        Customer customer;
+    try {
+         customer = customerRepository.showinfo(id);
+        System.out.println(customer);
+    }catch (SQLException e){
+        e.printStackTrace();
     }
+
+}
 
 }
 

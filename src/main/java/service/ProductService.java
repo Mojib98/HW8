@@ -82,4 +82,16 @@ public class ProductService implements Service<Product> {
     public CustomerBasket giveproduce(int id,int num) throws SQLException {
             return prodoctRepository.give(id,num);
     }
+    public void showAllproduct(){
+        try {
+            List<Product> list=new ArrayList<Product>();
+            list = prodoctRepository.findAll();
+            for (Product p:list
+            ) {
+                System.out.println(p);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
