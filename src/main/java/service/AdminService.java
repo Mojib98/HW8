@@ -13,6 +13,11 @@ public class AdminService implements Service<Admin> {
     Scanner scanner;
     Admin admin;
     Random random;
+    String nationalid;
+
+    public void setNationalid(String nationalid) {
+        this.nationalid = nationalid;
+    }
 
     public AdminService() {
         try {
@@ -22,9 +27,10 @@ public class AdminService implements Service<Admin> {
             random = new Random();
         } catch (SQLException e) {
             System.out.println("bad code in repository admin");
-        } catch (ClassNotFoundException s) {
+        } catch (Exception s) {
             System.out.println("bad code in repository admin");
         }
+
     }
 
     @Override
@@ -45,7 +51,8 @@ public class AdminService implements Service<Admin> {
             E.printStackTrace();
             return 0;
         }
-    }
+        }
+
 
     @Override
     public List<Admin> findAll() {
@@ -57,7 +64,6 @@ public class AdminService implements Service<Admin> {
             }
         } catch (Exception e) {
             System.out.println("bad code");
-            return null;
         }
         return null;
     }
@@ -70,11 +76,9 @@ public class AdminService implements Service<Admin> {
             String name = scanner.next();
             System.out.println("please insert nationalId");
             String nationalId = scanner.next();
-            System.out.println("please insert password");
-            int password = scanner.nextInt();
-            System.out.println("please insert id");
-            int id = scanner.nextInt();
+            int id = 0;
             System.out.println("plese insert new password");
+            int password = scanner.nextInt();
             admin = new Admin(id, name, nationalId, password, "ADMIN");
             return adminRepository.update(admin);
         } catch (Exception s) {
@@ -89,7 +93,7 @@ public class AdminService implements Service<Admin> {
             System.out.println("please insert your Id");
             int id = scanner.nextInt();
             return adminRepository.delete(id);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
@@ -110,6 +114,14 @@ public class AdminService implements Service<Admin> {
         }
     }*/
 
+    public void showInfo(){
+        try {
+            this.admin =adminRepository.seeMyInfo(this.nationalid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(admin);
+    }
 }
 
 
