@@ -22,7 +22,7 @@ public class CategoryRepository implements Repository<Category> {
     public int add(Category category) {
         try {
 
-            String sql = "INSERT INTO category(parentId,nameCategory) VALUES(?.?)";
+            String sql = "INSERT INTO category(barndid, name) VALUES(?.?)";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, category.getParentId());
             preparedStatement.setString(2, category.getName());
@@ -34,24 +34,19 @@ public class CategoryRepository implements Repository<Category> {
     }
 
     @Override
-    public List<Category> findAll()  {
-        try {
-
+    public List<Category> findAll() throws SQLException {
         Category category;
         List<Category> list=new ArrayList<Category>();
         String sql = "SELECT * FROM category";
         preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            int id =resultSet.getInt(2);
+        while (resultSet.next()) {
+            int id = resultSet.getInt(2);
             String name = resultSet.getString(3);
-            category = new Category(id,name);
+            category = new Category(id, name);
             list.add(category);
         }
-        return list;    }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;}
+        return list;    }
 
     @Override
     public int update(Category category)  {
@@ -60,6 +55,10 @@ public class CategoryRepository implements Repository<Category> {
 
     @Override
     public int delete(int id) throws SQLException {
-        return 0;
+        String sql="DELETE FROM category WHERE barndid=?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        return preparedStatement.executeUpdate();
+
     }
 }

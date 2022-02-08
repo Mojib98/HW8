@@ -1,3 +1,4 @@
+import models.Category;
 import models.CustomerBasket;
 import models.Product;
 import service.*;
@@ -18,6 +19,7 @@ public class menu {
     ProductService productService;
     CustomerBasketService customerBasketService;
     SaleProductService saleProductService;
+    CategoryService categoryService;
 
     public menu() throws SQLException, ClassNotFoundException {
         try {
@@ -27,6 +29,7 @@ public class menu {
             scanner = new Scanner(System.in);
             loginService = new LoginService();
             saleProductService = new SaleProductService();
+            categoryService = new CategoryService();
             istime = false;
 
     }catch (SQLException e
@@ -88,6 +91,8 @@ public class menu {
         System.out.println("for insert produce insert 1\n" +
                 "for see all customer insert 2\n" +
                 "for delete your product insert 3\n" +
+                "for insert category insert 4\n" +
+                "for see all category insert 5\n" +
                 "for exit insert 4");
         int select = scanner.nextInt();
         switch (select){
@@ -102,6 +107,10 @@ public class menu {
                 productService.delete();
                 break;
             case 4:
+                categoryService.add();
+            case 5:
+                categoryService.showAll();
+            case 6:
                 istime =false;
             default:
                 continue;
@@ -115,9 +124,10 @@ public class menu {
 
             while (istime){
             System.out.println("for buy insert 1\n" +
-                    "for see your basket insert 2\n" +
-                    "for final sale insert 3\n" +
-                    "for delete from basket insert 4\n" +
+                    "for see by category insert 2" +
+                    "for see your basket insert 3\n" +
+                    "for final sale insert 4\n" +
+                    "for delete from basket insert 5\n" +
                     "for  cancel insert 5 ");
             List<CustomerBasket> list = null;
             int select = scanner.nextInt();
@@ -129,19 +139,28 @@ public class menu {
                     customerBasketService.add();
                     break;
                 case 2:
+                    categoryService.showAll();
+                    System.out.println("select category");
+                    int category = scanner.nextInt();
+                    productService.showByCategory(category);
+                    break;
+                case 3:
                     customerBasketService.show();
                    break;
-                case 3:
+                case 4:
                     list = customerBasketService.findAll();
                     saleProductService.add(list);
                     customerBasketService.deleteFromBasket();
                     break;
-                case 4:
+                case 5:
                     customerBasketService.delete();
                     break;
-                case 5:
+                case 6:
                     customerBasketService.deleteFromBasket();
                     istime =false;
+                    break;
+                default:
+                    continue;
             }
         }
     }catch (Exception e){

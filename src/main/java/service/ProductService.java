@@ -37,6 +37,8 @@ public class ProductService implements Service<Product> {
         try{
         System.out.println("insert id");
         int id = scanner.nextInt();
+        System.out.println("please insert brand");
+        int categury=scanner.nextInt();
         System.out.println("please insert name");
         String name = scanner.next();
        // int admin = scanner.nextInt();
@@ -45,6 +47,7 @@ public class ProductService implements Service<Product> {
         System.out.println("insert price");
         float price = scanner.nextFloat();
         product=new Product(id,this.adminId,num,name,price);
+        product.setCategoryId(categury);
       return   prodoctRepository.add(product);
     } catch (Exception e){
             e.printStackTrace();
@@ -105,4 +108,15 @@ public class ProductService implements Service<Product> {
     public void returnPeoduce(int id,int num) throws SQLException {
         prodoctRepository.returnPeoduce(id,num);
     }
+    public void showByCategory(int id){
+        try {
+
+               List<Product> list=prodoctRepository.productscategory(id);
+        for (Product p :list
+             ) {
+            System.out.println(p);
+        }
+    }catch (Exception e){
+            e.printStackTrace();
+        }}
 }

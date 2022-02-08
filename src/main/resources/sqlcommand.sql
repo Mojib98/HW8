@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS userstore
 );
 CREATE TABLE IF NOT EXISTS Product(
     id serial,
+    idProduct integer,
     adminId integer,
     categoryId integer,
     nameProduct varchar(20),
@@ -24,7 +25,7 @@ CREATE TABLE IF NOT EXISTS customerBasket(
     numberProduct integer ,
     price float,
     name varchar(20)
-)
+);
 CREATE TABLE IF NOT EXISTS saleProduct(
     id serial,
     customerId integer,
@@ -32,6 +33,11 @@ CREATE TABLE IF NOT EXISTS saleProduct(
     numberProduct integer,
     price float,
     datesell date
+);
+create table if not exists category(
+    id serial,
+    barndid integer,
+    name varchar(20)
 );
 delete from userstore;
 delete from customerBasket;

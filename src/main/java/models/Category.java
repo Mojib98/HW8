@@ -2,6 +2,15 @@ package models;
 
 public class Category {
     private int parentId,id;
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     private String name;
 
     public Category( int id, String name) {

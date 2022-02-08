@@ -23,16 +23,17 @@ public class ProdoctRepository implements Repository<Product>
 
     @Override
     public int add(Product product)  {
-       String sql = "INSERT INTO product(adminId,categoryId,nameProduct" +
-               ",numberProduct,price) VALUES(?,?,?,?,?)";
+       String sql = "INSERT INTO product(adminId,idproduct,categoryId,nameProduct" +
+               ",numberProduct,price) VALUES(?,?,?,?,?,?)";
        try {
 
        preparedStatement = connection.prepareStatement(sql);
        preparedStatement.setInt(1,product.getAdminId());
        preparedStatement.setInt(2,product.getId());
-       preparedStatement.setString(3,product.getName());
-       preparedStatement.setInt(4,product.getNumber());
-       preparedStatement.setFloat(5,product.getPrice());
+       preparedStatement.setInt(3,product.getCategoryId());
+       preparedStatement.setString(4,product.getName());
+       preparedStatement.setInt(5,product.getNumber());
+       preparedStatement.setFloat(6,product.getPrice());
        return preparedStatement.executeUpdate();
 
     }catch (SQLException e){
@@ -115,5 +116,24 @@ public class ProdoctRepository implements Repository<Product>
         updateNumber(id,num);
     }
 
+    public List<Product> productscategory(int id) throws SQLException {
+        String sql = "SELECT * FROM product where categoryid=?";
+        preparedStatement.setInt(1,id);
+            List<Product> list = new ArrayList<Product>();
+            Product product;
+            preparedStatement=connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                product = new Product();
+                product.setSerialId(resultSet.getInt(1));
+                product.setAdminId(resultSet.getInt(2));
+                product.setCategoryId(resultSet.getInt(3));
+                product.setName(resultSet.getString(4));
+                product.setNumber(resultSet.getInt(5));
+                product.setPrice(resultSet.getFloat(6));
+                list.add(product);
 
+            }
+            return list;
+    }
 }

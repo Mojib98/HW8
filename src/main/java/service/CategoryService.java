@@ -75,5 +75,16 @@ public class CategoryService implements Service<Category> {
         return 0;
 
     }
+    public void showAll(){
+        List<Category> list = new ArrayList<Category>();
+        try {
+
+        list=categoryRepository.findAll();
+        for (Category c:list){
+            System.out.println(c);
+        }
+    }catch (Exception e){
+        e.printStackTrace();}
+    }
 
 }
