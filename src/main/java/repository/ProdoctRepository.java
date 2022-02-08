@@ -81,15 +81,19 @@ public class ProdoctRepository implements Repository<Product>
     }
     public CustomerBasket give(int id,int num) throws SQLException {
         CustomerBasket customerBasket = new CustomerBasket();
-        String sql ="SELECT * FROM product WHERE id=?";
+        String sql ="SELECT * FROM product WHERE id = ?";
         preparedStatement= connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next();
+        while (resultSet.next()){
        // customerBasket.setName(resultSet.getString(3));
         customerBasket.setIdProduct(id);
         customerBasket.setName(resultSet.getString(4));
-        customerBasket.setNumber(num);
+      //  customerBasket.setNumber(num);
+        //resultSet.next();
+     //   System.out.println(resultSet.next());
+        System.out.println(resultSet.getFloat("price"));
+        customerBasket.setPrice(resultSet.getFloat(6));}
         updateNumber(id,-num);
         return customerBasket;
     }
@@ -99,6 +103,7 @@ public class ProdoctRepository implements Repository<Product>
         preparedStatement.setInt(1,id);
         ResultSet r = preparedStatement.executeQuery();
         r.next();
+        System.out.println(r.getInt(1));
         int nu = r.getInt(1) + num;
         Product p = new Product();
         p.setNumber(nu);

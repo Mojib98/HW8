@@ -99,6 +99,7 @@ public class CustomerBasketService implements Service<CustomerBasket> {
             if (s.getIdCustomer() == customerId) {
                 System.out.println(s);
             }
+            System.out.println("total price: "+totalPrice);
 
         }
 

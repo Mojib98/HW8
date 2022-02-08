@@ -33,3 +33,7 @@ CREATE TABLE IF NOT EXISTS saleProduct(
     price float,
     datesell date
 );
+delete from userstore;
+delete from customerBasket;
+delete from product;
+delete from saleproduct;

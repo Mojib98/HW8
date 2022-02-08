@@ -19,13 +19,15 @@ public class Main {
       //  p.setAdminId(63);
         //p.showAllproduct();
         //p.delete();
-        customeServie.setId(185);
+      //  customeServie.setId(185);
       //  customeServie.showInfo();
-        p.showAllproduct();
-        c.setCustomerId(185);
-        c.delete();
+        //p.showAllproduct();
+        //c.setCustomerId(185);
+        //c.delete();
         //c.add();
-        c.show();
+       /// c.show();
+        menu m=new menu();
+        m.menu();
 
     }
 }

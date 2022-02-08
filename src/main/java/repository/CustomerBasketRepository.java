@@ -67,7 +67,7 @@ public class CustomerBasketRepository implements Repository<CustomerBasket> {
 
     @Override
     public int delete(int id) throws SQLException {
-        String sql ="DELETE  FROM  customerbasket WHERE id=?";
+        String sql ="DELETE  FROM  customerbasket WHERE productid=?";
         preparedStatement=connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
         return preparedStatement.executeUpdate();

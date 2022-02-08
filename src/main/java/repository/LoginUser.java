@@ -14,13 +14,14 @@ PreparedStatement preparedStatement;
 
     public boolean isHere(int id,int password) throws SQLException {
         String sql="SELECT  COUNT(*) FROM userstore WHERE " +
-                "IdUser = ? AND password = ?";
+                "iduser=? AND password = ?";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
         preparedStatement.setInt(2,password);
         ResultSet resultSet=preparedStatement.executeQuery();
         resultSet.next();
-        if(resultSet.getInt(1)>=1)
+        System.out.println(resultSet.getInt(1));
+        if(resultSet.getInt(1)==1)
             return true;
         else
             return false;
