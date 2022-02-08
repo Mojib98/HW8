@@ -82,10 +82,33 @@ public void showInfo(){
         System.out.println(customer);
     }catch (SQLException e){
         e.printStackTrace();
+    }}
+public void addBuget(){
+        try {
+            System.out.println("please insert budget");
+            float budget = scanner.nextFloat();
+            customerRepository.changeBudget(id,budget);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-
+    public float howMuch(){
+        try {
+            return customerRepository.HowMuchHave(id);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public void withdraw(float budget){
+        try {
+            customerRepository.changeBudget(id,-budget);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
 
-}
+
 
 

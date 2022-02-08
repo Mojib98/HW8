@@ -9,6 +9,7 @@ import java.util.List;
 public class SaleProductService {
     SaleProductRepository saleProductRepository =new SaleProductRepository();
 
+
     public SaleProductService() throws SQLException, ClassNotFoundException {
     }
 

@@ -78,4 +78,5 @@ public class CustomerBasketRepository implements Repository<CustomerBasket> {
         preparedStatement.setInt(1,idCustomer);
         preparedStatement.executeUpdate();
     }
+
 }

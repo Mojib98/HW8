@@ -93,7 +93,8 @@ public class menu {
                 "for delete your product insert 3\n" +
                 "for insert category insert 4\n" +
                 "for see all category insert 5\n" +
-                "for exit insert 4");
+                "for delete category insert 6\n" +
+                "for exit insert 7");
         int select = scanner.nextInt();
         switch (select){
             case 1:
@@ -110,7 +111,12 @@ public class menu {
                 categoryService.add();
             case 5:
                 categoryService.showAll();
+                break;
             case 6:
+                System.out.println("enter id");
+                int cat=scanner.nextInt();
+                categoryService.delete(cat);
+            case 7:
                 istime =false;
             default:
                 continue;
@@ -124,15 +130,18 @@ public class menu {
 
             while (istime){
             System.out.println("for buy insert 1\n" +
-                    "for see by category insert 2" +
+                    "for see by category insert 2\n" +
                     "for see your basket insert 3\n" +
                     "for final sale insert 4\n" +
                     "for delete from basket insert 5\n" +
-                    "for  cancel insert 5 ");
+                    "for add budget insert 6\n" +
+                    "for see information insert 7" +
+                    "for  cancel insert 8 ");
             List<CustomerBasket> list = null;
             int select = scanner.nextInt();
             productService = new ProductService();
             customerBasketService.setCustomerId(this.id);
+            customeServie.setId(this.id);
             switch (select){
                 case 1:
                     productService.showAllproduct();
@@ -148,14 +157,25 @@ public class menu {
                     customerBasketService.show();
                    break;
                 case 4:
+                    float my=customeServie.howMuch();
+                    float price=customerBasketService.getTotalPrice();
+                    if (my>price){
+                        customeServie.withdraw(price);
                     list = customerBasketService.findAll();
                     saleProductService.add(list);
-                    customerBasketService.deleteFromBasket();
+                    customerBasketService.deleteFromBasket();}
+                    else
+                        System.out.println("you dont have mony");
                     break;
                 case 5:
                     customerBasketService.delete();
                     break;
                 case 6:
+                    customeServie.addBuget();
+                    break;
+                case 7:
+                    customeServie.showInfo();
+                case 8:
                     customerBasketService.deleteFromBasket();
                     istime =false;
                     break;

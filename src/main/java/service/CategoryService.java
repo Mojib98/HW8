@@ -33,12 +33,12 @@ public class CategoryService implements Service<Category> {
     @Override
     public int add() {
         try {
-            System.out.println("Plese insert brandId");
-            int brand = scanner.nextInt();
+          //  System.out.println("Plese insert brandId");
+            ///int brand = scanner.nextInt();
             System.out.println("insert your name");
             String name = scanner.next();
             int id = random.ints(4, 10, 99).findFirst().getAsInt();
-            category = new Category(brand, name);
+            category = new Category(id, name);
             categoryRepository.add(category);
             return 0;
         } catch (Exception s) {
@@ -85,6 +85,13 @@ public class CategoryService implements Service<Category> {
         }
     }catch (Exception e){
         e.printStackTrace();}
+    }
+    public void delete(int id){
+        try {
+            categoryRepository.delete(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

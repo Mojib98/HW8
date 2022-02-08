@@ -22,9 +22,9 @@ public class CategoryRepository implements Repository<Category> {
     public int add(Category category) {
         try {
 
-            String sql = "INSERT INTO category(barndid, name) VALUES(?.?)";
+            String sql = "INSERT INTO category(barndid, name) VALUES(?,?)";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, category.getParentId());
+            preparedStatement.setInt(1, category.getId());
             preparedStatement.setString(2, category.getName());
             return preparedStatement.executeUpdate();
         }catch (SQLException e){
