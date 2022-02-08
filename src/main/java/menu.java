@@ -32,7 +32,7 @@ public class menu {
         }
         else {
                 if (login()){
-                    if (this.id>100){
+                    if (this.id<100){
                         admin();
                     }
                     else
@@ -52,9 +52,9 @@ public class menu {
             customeServie.add();
     }
     private boolean login() throws SQLException {
-        System.out.println("plese insert your id");
+        System.out.println("please insert your id");
         this.id = scanner.nextInt();
-        System.out.println("plese insert your password");
+        System.out.println("please insert your password");
         int password=scanner.nextInt();
         return loginService.isHere(this.id,password);
     }
@@ -62,7 +62,9 @@ public class menu {
         while (istime){
             productService = new ProductService();
         System.out.println("for insert produce insert 1/n" +
-                "for see all customer insert 2");
+                "for see all customer insert 2/n" +
+                "for delete your product insert 3\n" +
+                "for exit insert 4");
         int select = scanner.nextInt();
         switch (select){
             case 1:
@@ -73,33 +75,37 @@ public class menu {
                 productService.findAll();
                 break;
             case 3:
+            case 4:
                 istime =false;
         }
     }}
 
     private void customer() throws SQLException {
         while (istime){
-            System.out.println("for sell insert 1\n" +
+            System.out.println("for buy insert 1\n" +
                     "for see your basket insert 2\n" +
                     "for final sale insert 3\n" +
                     "for delete from basket insert 4\n" +
-                    "for exit insert  or cancell 4");
+                    "for  cancel insert 5 ");
             List<CustomerBasket> list = null;
             int select = scanner.nextInt();
             customerBasketService.setCustomerId(this.id);
             switch (select){
                 case 1:
-                    productService.findAll();
+                    productService.showAllproduct();
                     customerBasketService.add();
                     break;
                 case 2:
-                    productService.findAll();
+                    customerBasketService.show();
                    break;
                 case 3:
                     list = customerBasketService.findAll();
                     saleProductService.add(list);
+                    customerBasketService.deleteFromBasket();
                 case 4:
+                    customerBasketService.delete();
                 case 5:
+                    customerBasketService.deleteFromBasket();
                     istime =false;
             }
         }

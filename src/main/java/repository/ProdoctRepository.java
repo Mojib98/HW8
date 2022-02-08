@@ -64,13 +64,20 @@ public class ProdoctRepository implements Repository<Product>
         }return null;}
 
     @Override
-    public int update(Product product) {
-        return 0;
+    public int update(Product product) throws SQLException {
+        String sql = "UPDATE product SET numberproduct=? WHERE id=?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(2,product.getId());
+        preparedStatement.setInt(1,product.getNumber());
+        return preparedStatement.executeUpdate();
     }
 
     @Override
     public int delete(int id) throws SQLException {
-        return 0;
+        String sql ="delete from product where id=?";
+        preparedStatement= connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        return preparedStatement.executeUpdate();
     }
     public CustomerBasket give(int id,int num) throws SQLException {
         CustomerBasket customerBasket = new CustomerBasket();
@@ -79,8 +86,29 @@ public class ProdoctRepository implements Repository<Product>
         preparedStatement.setInt(1,id);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        customerBasket.setIdProduct(resultSet.getInt(5));
+       // customerBasket.setName(resultSet.getString(3));
+        customerBasket.setIdProduct(id);
         customerBasket.setName(resultSet.getString(4));
+        customerBasket.setNumber(num);
+        updateNumber(id,-num);
         return customerBasket;
     }
+    private void updateNumber(int id , int num) throws SQLException {
+        String sql ="SELECT numberproduct  FROM product WHERE id=?";
+        preparedStatement= connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        ResultSet r = preparedStatement.executeQuery();
+        r.next();
+        int nu = r.getInt(1) + num;
+        Product p = new Product();
+        p.setNumber(nu);
+        p.setId(id);
+       update(p);
+
+    }
+    public void returnPeoduce(int id,int num) throws SQLException {
+        updateNumber(id,num);
+    }
+
+
 }

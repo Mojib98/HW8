@@ -72,7 +72,7 @@ public class CustomerRepository implements Repository<Customer> {
         return preparedStatement.executeUpdate();
     }
     public Customer showinfo(int id) throws SQLException {
-        String sql = "SELECT * FROM userstore WHERE id=?";
+        String sql = "SELECT * FROM userstore WHERE iduser=?";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
         ResultSet resultSet = preparedStatement.executeQuery();

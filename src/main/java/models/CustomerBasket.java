@@ -54,4 +54,15 @@ public class CustomerBasket {
     public void setPrice(float totalPrice) {
         this.Price = totalPrice;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerBasket{" +
+                "idCustomer=" + idCustomer +
+                ", idProduct=" + idProduct +
+                ", number=" + number +
+                ", Price=" + Price +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

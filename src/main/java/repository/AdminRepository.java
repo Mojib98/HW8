@@ -72,7 +72,7 @@ public class AdminRepository implements Repository<Admin> {
 
     public Admin seeMyInfo(int id) throws SQLException {
         Admin admin;
-        String sql = "SELECT * FROM userstore WHERE id = ?";
+        String sql = "SELECT * FROM userstore WHERE iduser = ?";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
         ResultSet resultSet = preparedStatement.executeQuery();

@@ -5,17 +5,18 @@ import repository.CustomerBasketRepository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CustomerBasketService implements Service<CustomerBasket> {
-Scanner scanner;
-ProductService productService;
-CustomerBasket customerBasket;
-CustomerBasketService customerBasketService;
-CustomerBasketRepository customerBasketRepository;
-private int customerId;
-private float totalPrice;
+    Scanner scanner;
+    ProductService productService;
+    CustomerBasket customerBasket;
+    CustomerBasketService customerBasketService;
+    CustomerBasketRepository customerBasketRepository;
+    private int customerId;
+    private float totalPrice;
 
     public float getTotalPrice() {
         return totalPrice;
@@ -31,7 +32,7 @@ private float totalPrice;
 
     public CustomerBasketService() throws SQLException, ClassNotFoundException {
         productService = new ProductService();
-        scanner=new Scanner(System.in);
+        scanner = new Scanner(System.in);
         customerBasketRepository = new CustomerBasketRepository();
         totalPrice = 0;
     }
@@ -46,7 +47,7 @@ private float totalPrice;
             customerBasket = productService.giveproduce(id, number);
             customerBasket.setNumber(number);
             customerBasket.setIdCustomer(this.customerId);
-            totalPrice +=customerBasket.Price()*number;
+            totalPrice += customerBasket.Price() * number;
             return customerBasketRepository.add(customerBasket);
 
         } catch (SQLException e) {
@@ -54,9 +55,20 @@ private float totalPrice;
         }
         return 0;
     }
+
     @Override
     public List<CustomerBasket> findAll() {
-        return null;
+        List<CustomerBasket> cust = new ArrayList<>();
+        List<CustomerBasket> cust2 = new ArrayList<>();
+        cust = customerBasketRepository.findAll();
+        for (CustomerBasket s : cust
+        ) {
+            if (s.getIdCustomer() == customerId) {
+                cust2.add(s);
+            }
+
+        }
+        return cust2;
     }
 
     @Override
@@ -66,6 +78,40 @@ private float totalPrice;
 
     @Override
     public int delete() {
-        return 0;
+        try {
+            System.out.println("please insert id");
+            int ids = scanner.nextInt();
+            System.out.println("please insert number");
+            int num = scanner.nextInt();
+            productService.returnPeoduce(ids, num);
+            return customerBasketRepository.delete(ids);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public void show() {
+        List<CustomerBasket> c = new ArrayList<>();
+        c = findAll();
+        for (CustomerBasket s : c
+        ) {
+            if (s.getIdCustomer() == customerId) {
+                System.out.println(s);
+            }
+
+        }
+
+
+    }
+
+    public void deleteFromBasket(){
+        try {
+            customerBasketRepository.deleteBasket(customerId);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 }
+

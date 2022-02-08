@@ -77,6 +77,13 @@ public class ProductService implements Service<Product> {
 
     @Override
     public int delete() {
+        System.out.println("insert your id product");
+        try {
+            int id=scanner.nextInt();
+            return prodoctRepository.delete(id);
+        }catch (Exception p){
+            p.printStackTrace();
+        }
         return 0;
     }
     public CustomerBasket giveproduce(int id,int num) throws SQLException {
@@ -88,10 +95,14 @@ public class ProductService implements Service<Product> {
             list = prodoctRepository.findAll();
             for (Product p:list
             ) {
+
                 System.out.println(p);
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void returnPeoduce(int id,int num) throws SQLException {
+        prodoctRepository.returnPeoduce(id,num);
     }
 }

@@ -13,6 +13,7 @@ public class CustomerBasketRepository implements Repository<CustomerBasket> {
     Connection connection;
     PreparedStatement preparedStatement;
     CustomerBasket customerBasket;
+    //private int customperId;
 
     public CustomerBasketRepository() throws SQLException, ClassNotFoundException {
         connection = Singleton.getInstance().getConnection();
@@ -21,12 +22,13 @@ public class CustomerBasketRepository implements Repository<CustomerBasket> {
     @Override
     public int add(CustomerBasket customerBasket) {
         try {
-            String sql = "INSERT INTO customerbasket(customerid, productid, numberproduct, price) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO customerbasket(customerid, productid, numberproduct, price,name) VALUES (?,?,?,?,?)";
             preparedStatement=connection.prepareStatement(sql);
             preparedStatement.setInt(1,customerBasket.getIdCustomer());
             preparedStatement.setInt(2,customerBasket.getIdProduct());
             preparedStatement.setInt(3,customerBasket.getNumber());
             preparedStatement.setFloat(4,customerBasket.Price());
+            preparedStatement.setString(5,customerBasket.getName());
             return preparedStatement.executeUpdate();
 
         }catch (SQLException e){
@@ -48,6 +50,7 @@ public class CustomerBasketRepository implements Repository<CustomerBasket> {
                 customerBasket.setIdProduct(resultSet.getInt(3));
                 customerBasket.setNumber(resultSet.getInt(4));
                 customerBasket.setPrice(resultSet.getFloat(5));
+                customerBasket.setName(resultSet.getString(6));
                 list.add(customerBasket);
             }
             return list;
@@ -64,6 +67,15 @@ public class CustomerBasketRepository implements Repository<CustomerBasket> {
 
     @Override
     public int delete(int id) throws SQLException {
-        return 0;
+        String sql ="DELETE  FROM  customerbasket WHERE id=?";
+        preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        return preparedStatement.executeUpdate();
+    }
+    public void deleteBasket(int idCustomer) throws SQLException {
+        String sql = "DELETE FROM customerbasket WHERE customerid=?";
+        preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.setInt(1,idCustomer);
+        preparedStatement.executeUpdate();
     }
 }

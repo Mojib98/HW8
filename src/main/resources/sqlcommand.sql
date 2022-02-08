@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS customerBasket(
     customerId integer ,
     productId integer ,
     numberProduct integer ,
-    price float
+    price float,
+    name varchar(20)
 )
 CREATE TABLE IF NOT EXISTS saleProduct(
     id serial,
