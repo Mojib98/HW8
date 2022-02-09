@@ -53,6 +53,7 @@ public abstract class User {
         return typeUser;
     }
 
+
     @Override
     public String toString() {
         return "User{" +

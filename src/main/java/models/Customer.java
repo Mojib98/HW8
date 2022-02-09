@@ -26,4 +26,12 @@ public class Customer extends User {
     public void setBudget(float budget) {
         this.budget = budget;
     }
+
+
+    public void tring() {
+        System.out.println( "Customer{" +
+                "address='" + address + '\'' +
+                ", budget=" + budget +
+                '}');
+    }
 }

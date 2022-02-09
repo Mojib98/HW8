@@ -80,6 +80,7 @@ public void showInfo(){
     try {
          customer = customerRepository.showinfo(id);
         System.out.println(customer);
+        customer.tring();
     }catch (SQLException e){
         e.printStackTrace();
     }}
@@ -102,7 +103,7 @@ public void addBuget(){
     }
     public void withdraw(float budget){
         try {
-            customerRepository.changeBudget(id,-budget);
+            customerRepository.wid(id,budget);
         }catch (Exception e){
             e.printStackTrace();
         }

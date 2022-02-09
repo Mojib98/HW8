@@ -109,6 +109,7 @@ public class menu {
                 break;
             case 4:
                 categoryService.add();
+
             case 5:
                 categoryService.showAll();
                 break;
@@ -116,6 +117,7 @@ public class menu {
                 System.out.println("enter id");
                 int cat=scanner.nextInt();
                 categoryService.delete(cat);
+                break;
             case 7:
                 istime =false;
             default:
@@ -127,7 +129,9 @@ public class menu {
 
         try {
             CustomerBasketService customerBasketService = new CustomerBasketService();
-
+            productService = new ProductService();
+            customerBasketService.setCustomerId(this.id);
+            customeServie.setId(this.id);
             while (istime){
             System.out.println("for buy insert 1\n" +
                     "for see by category insert 2\n" +
@@ -139,9 +143,6 @@ public class menu {
                     "for  cancel insert 8 ");
             List<CustomerBasket> list = null;
             int select = scanner.nextInt();
-            productService = new ProductService();
-            customerBasketService.setCustomerId(this.id);
-            customeServie.setId(this.id);
             switch (select){
                 case 1:
                     productService.showAllproduct();
@@ -159,11 +160,13 @@ public class menu {
                 case 4:
                     float my=customeServie.howMuch();
                     float price=customerBasketService.getTotalPrice();
-                    if (my>price){
+                   //System.out.println(Float.compare(my,price)+" "+my+"how "+price);
+                    if (Float.compare(my,price) < 0){
                         customeServie.withdraw(price);
                     list = customerBasketService.findAll();
                     saleProductService.add(list);
-                    customerBasketService.deleteFromBasket();}
+                    customerBasketService.deleteFromBasket();
+                    }
                     else
                         System.out.println("you dont have mony");
                     break;
@@ -175,6 +178,7 @@ public class menu {
                     break;
                 case 7:
                     customeServie.showInfo();
+                    break;
                 case 8:
                     customerBasketService.deleteFromBasket();
                     istime =false;

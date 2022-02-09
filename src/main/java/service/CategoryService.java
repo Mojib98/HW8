@@ -37,7 +37,7 @@ public class CategoryService implements Service<Category> {
             ///int brand = scanner.nextInt();
             System.out.println("insert your name");
             String name = scanner.next();
-            int id = random.ints(4, 10, 99).findFirst().getAsInt();
+            int id = random.ints(4, 3000, 4000).findFirst().getAsInt();
             category = new Category(id, name);
             categoryRepository.add(category);
             return 0;

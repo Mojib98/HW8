@@ -92,13 +92,22 @@ public class CustomerRepository implements Repository<Customer> {
         preparedStatement.setInt(1,id);
         ResultSet r= preparedStatement.executeQuery();
         r.next();
+        System.out.println(r.getInt(1));
         return r.getFloat(1);
 
     }
     public void changeBudget(int id,float budget) throws SQLException {
-        String sql = "UPDATE userstore set budget =? where  iduser=?";
+        float t = HowMuchHave(id)+(budget);
+        String sql = " UPDATE userstore SET budget = ? WHERE IdUser = ? ";
         preparedStatement = connection.prepareStatement(sql);
-        float t = HowMuchHave(id)+budget;
+        preparedStatement.setFloat(1,t);
+        preparedStatement.setInt(2,id);
+        preparedStatement.executeUpdate();
+    }
+    public void wid(int id,float budget) throws SQLException {
+        float t = HowMuchHave(id)-(budget);
+        String sql = " UPDATE userstore SET budget = ? WHERE IdUser = ? ";
+        preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setFloat(1,t);
         preparedStatement.setInt(2,id);
         preparedStatement.executeUpdate();

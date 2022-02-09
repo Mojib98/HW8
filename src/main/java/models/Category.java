@@ -1,7 +1,7 @@
 package models;
 
 public class Category {
-    private int parentId,id;
+    private int id;
 
     @Override
     public String toString() {
@@ -21,13 +21,6 @@ public class Category {
     public Category() {
     }
 
-    public int getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
 
     public int getId() {
         return id;
