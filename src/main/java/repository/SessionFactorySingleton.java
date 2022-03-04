@@ -1,6 +1,7 @@
 package repository;
 
 import models.Customer;
+import models.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -23,6 +24,7 @@ public class SessionFactorySingleton {
             // SessionFactory is immutable.
             INSTANCE = new MetadataSources(registry)
                     .addAnnotatedClass(Customer.class)
+                    .addAnnotatedClass(User.class)
                     .buildMetadata()
                     .buildSessionFactory();
         }

@@ -44,7 +44,7 @@ private int id;
         System.out.println("please insert your address");
         String address = scanner.next();
         int id = random.ints(4, 100, 200).findFirst().getAsInt();
-        customer = new Customer(id,name,national,password,"CUSTUMER",address,10000);
+        customer = new Customer(id,10000,name,national,password,"CUSTUMER",address);
        return customerRepository.add(customer);
         } catch(Exception e){
             e.printStackTrace();
@@ -80,8 +80,8 @@ public void showInfo(){
     try {
          customer = customerRepository.showinfo(id);
         System.out.println(customer);
-        customer.tring();
-    }catch (SQLException e){
+     //   customer.tring();
+    }catch (Exception e){
         e.printStackTrace();
     }}
 public void addBuget(){
@@ -96,7 +96,7 @@ public void addBuget(){
     public float howMuch(){
         try {
             return customerRepository.HowMuchHave(id);
-        }catch (SQLException e){
+        }catch (Exception e){
             e.printStackTrace();
         }
         return 0;

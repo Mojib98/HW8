@@ -17,8 +17,9 @@ public class CustomerRepository implements Repository<Customer> {
     SessionFactory sessionFactory = SessionFactorySingleton.getInstance();
 
 
+
     @Override
-    public int add(Customer custumer) throws SQLException {
+    public int add(Customer custumer)  {
         /*String sql="INSERT INTO userstore(IdUser,fullName,nationalId,password" +
                 ",kind,address,budget) VALUES(?,?,?,?,?,?,?);";
         preparedStatement = connection.prepareStatement(sql);
@@ -35,7 +36,6 @@ public class CustomerRepository implements Repository<Customer> {
             var transaction = session.beginTransaction();
             try {
                 session.save(custumer);
-
                 transaction.commit();
             } catch (Exception e) {
                 transaction.rollback();
@@ -61,7 +61,7 @@ public class CustomerRepository implements Repository<Customer> {
             String type=resultSet.getString(6);
             String addres=resultSet.getString(7);
             float budget=resultSet.getFloat(8);
-            custumer = new Customer(id,name,nationalId,password,type,addres,budget);
+            custumer = new Customer(id,budget,name,nationalId,password,type,addres);
             list.add(custumer);
         }
         return list;
@@ -103,7 +103,6 @@ public class CustomerRepository implements Repository<Customer> {
     }
     public Customer showinfo(int id)  {
             try (var session = sessionFactory.openSession()) {
-                var transaction = session.beginTransaction();
                 try {
                     String hql = " from models.Customer " +
                             "where id =:id";
@@ -127,6 +126,7 @@ public class CustomerRepository implements Repository<Customer> {
                     var c= query.getSingleResult();
                     return c;
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             return  0;
