@@ -85,7 +85,7 @@ public class CustomerRepository implements Repository<Customer> {
 
 
     @Override
-    public int delete(int id) throws SQLException {
+    public int delete(int id)  {
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
             try {
@@ -133,17 +133,18 @@ public class CustomerRepository implements Repository<Customer> {
 
 
         }
-    public void changeBudget(int id,float budget) throws SQLException {
+    public void changeBudget(int id,float budget) {
         float t = HowMuchHave(id)+(budget);
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
 
             try {
-                String hql = "update  models.Customer c set c.budget =:b  " +
+                String hql = "update  models.Customer c set c.budget =: b  " +
                         "where c.id =:id";
                 var query=session.createQuery(hql);
                 query.setParameter("id",id);
                 query.setParameter("b",t);
+                query.executeUpdate();
                 transaction.commit();
 
             } catch (Exception e) {
@@ -153,7 +154,7 @@ public class CustomerRepository implements Repository<Customer> {
         }
 
     }
-    public void wid(int id,float budget) throws SQLException {
+    public void wid(int id,float budget)  {
        // float t = HowMuchHave(id)-(budget);
         changeBudget(id,-budget);
 

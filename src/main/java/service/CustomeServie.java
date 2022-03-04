@@ -69,7 +69,7 @@ private int id;
         System.out.println("insert id");
         int id = scanner.nextInt();
         return customerRepository.delete(id);
-    }catch (SQLException e){
+    }catch (Exception e){
             e.printStackTrace();
             return 0;
         }
