@@ -1,5 +1,15 @@
 package models;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+
+@AllArgsConstructor
+@Setter
+@NoArgsConstructor
+@Entity
 public class Customer extends User {
     private String address;
     private float budget;
@@ -11,27 +21,6 @@ public class Customer extends User {
     }
 
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public float getBudget() {
-        return budget;
-    }
-
-    public void setBudget(float budget) {
-        this.budget = budget;
-    }
 
 
-    public void tring() {
-        System.out.println( "Customer{" +
-                "address='" + address + '\'' +
-                ", budget=" + budget +
-                '}');
-    }
 }

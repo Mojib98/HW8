@@ -2,6 +2,7 @@ package repository;
 
 import models.Customer;
 import models.User;
+import org.hibernate.SessionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,15 +14,12 @@ import java.util.List;
 public class CustomerRepository implements Repository<Customer> {
     PreparedStatement preparedStatement;
     Connection connection ;
+    SessionFactory sessionFactory = SessionFactorySingleton.getInstance();
 
-
-    public CustomerRepository() throws SQLException, ClassNotFoundException {
-        connection = Singleton.getInstance().getConnection();
-    }
 
     @Override
     public int add(Customer custumer) throws SQLException {
-        String sql="INSERT INTO userstore(IdUser,fullName,nationalId,password" +
+        /*String sql="INSERT INTO userstore(IdUser,fullName,nationalId,password" +
                 ",kind,address,budget) VALUES(?,?,?,?,?,?,?);";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,custumer.getId());
@@ -32,7 +30,19 @@ public class CustomerRepository implements Repository<Customer> {
         preparedStatement.setString(6,custumer.getAddress());
         preparedStatement.setFloat(7,custumer.getBudget());
         return preparedStatement.executeUpdate();
+        */
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            try {
+                session.save(custumer);
 
+                transaction.commit();
+            } catch (Exception e) {
+                transaction.rollback();
+                throw e;
+            }
+        }
+            return 0;
         }
 
 
@@ -60,56 +70,92 @@ public class CustomerRepository implements Repository<Customer> {
 
     @Override
     public int update(Customer custumer)  {
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            try {
+                session.update(custumer);
+                transaction.commit();
+            } catch (Exception e) {
+                transaction.rollback();
+                throw e;
+            }
+        }
         return 0;
     }
 
 
     @Override
     public int delete(int id) throws SQLException {
-        String sql="DELETE FROM userstore WHERE IdUser=?";
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,id);
-        return preparedStatement.executeUpdate();
-    }
-    public Customer showinfo(int id) throws SQLException {
-        String sql = "SELECT * FROM userstore WHERE iduser=?";
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-            String name = resultSet.getString(3);
-            String nationalId=resultSet.getString(4);
-            int password = resultSet.getInt(5);
-            String type=resultSet.getString(6);
-            String addres=resultSet.getString(7);
-            float budget=resultSet.getFloat(8);
-           Customer custumer = new Customer(id,name,nationalId,password,type,addres,budget);
-            return custumer;
-    }
-    public float  HowMuchHave(int id) throws SQLException {
-        String sql="SELECT budget FROM userstore where iduser=?";
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,id);
-        ResultSet r= preparedStatement.executeQuery();
-        r.next();
-        System.out.println(r.getInt(1));
-        return r.getFloat(1);
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            try {
+                String hql = "delete from models.Customer " +
+                        "where id =:id";
+                var query=session.createQuery(hql);
+                query.setParameter("id",id);
+                return query.executeUpdate();
+            } catch (Exception e) {
+                throw e;
+            }
 
     }
+
+    }
+    public Customer showinfo(int id)  {
+            try (var session = sessionFactory.openSession()) {
+                var transaction = session.beginTransaction();
+                try {
+                    String hql = " from models.Customer " +
+                            "where id =:id";
+                    var query=session.createQuery(hql,Customer.class);
+                    query.setParameter("id",id);
+                   var c= query.getSingleResult();
+                   return c;
+                } catch (Exception e) {
+                    throw e;
+                }
+        }
+
+        }
+    public float  HowMuchHave(int id)  {
+            try (var session = sessionFactory.openSession()) {
+                try {
+                    String hql = "select c.budget from models.Customer c " +
+                            "where c.id =:id";
+                    var query=session.createQuery(hql,Float.class);
+                    query.setParameter("id",id);
+                    var c= query.getSingleResult();
+                    return c;
+                } catch (Exception e) {
+                }
+            }
+            return  0;
+
+
+        }
     public void changeBudget(int id,float budget) throws SQLException {
         float t = HowMuchHave(id)+(budget);
-        String sql = " UPDATE userstore SET budget = ? WHERE IdUser = ? ";
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setFloat(1,t);
-        preparedStatement.setInt(2,id);
-        preparedStatement.executeUpdate();
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+
+            try {
+                String hql = "update  models.Customer c set c.budget =:b  " +
+                        "where c.id =:id";
+                var query=session.createQuery(hql);
+                query.setParameter("id",id);
+                query.setParameter("b",t);
+                transaction.commit();
+
+            } catch (Exception e) {
+                transaction.rollback();
+                throw e;
+            }
+        }
+
     }
     public void wid(int id,float budget) throws SQLException {
-        float t = HowMuchHave(id)-(budget);
-        String sql = " UPDATE userstore SET budget = ? WHERE IdUser = ? ";
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setFloat(1,t);
-        preparedStatement.setInt(2,id);
-        preparedStatement.executeUpdate();
+       // float t = HowMuchHave(id)-(budget);
+        changeBudget(id,-budget);
+
     }
 }

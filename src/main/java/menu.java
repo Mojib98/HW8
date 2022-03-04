@@ -161,7 +161,7 @@ public class menu {
                     float my=customeServie.howMuch();
                     float price=customerBasketService.getTotalPrice();
                    //System.out.println(Float.compare(my,price)+" "+my+"how "+price);
-                    if (Float.compare(my,price) < 0){
+                    if (Float.compare(my,price) > 0){
                         customeServie.withdraw(price);
                     list = customerBasketService.findAll();
                     saleProductService.add(list);

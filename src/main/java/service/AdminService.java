@@ -45,7 +45,6 @@ public class AdminService implements Service<Admin> {
             System.out.println();
             System.out.println("please insert password");
             int password = scanner.nextInt();
-            int id = random.ints(4, 10, 99).findFirst().getAsInt();
             admin = new Admin(id, name, nationalId, password, "ADMIN");
             return adminRepository.add(admin);
         } catch (Exception E) {
