@@ -20,7 +20,7 @@ class CustomerRepositoryTest {
     }
     @BeforeEach
     void madeCustome(){
-         customer = new Customer(0,0,"mojib","12",12,"aa","bir");
+         customer = new Customer(0,"mojib","12",12,"C",0,"ir");
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
             try {
@@ -98,7 +98,7 @@ class CustomerRepositoryTest {
         int id = customer.getId();
         String s;
         Customer customer1;
-        Customer customer2=new Customer(0,0,"mojib","12",12,"aa","bir");
+        Customer customer2 = new Customer(0,"mojib","12",12,"C",20,"ir");
         customerRepository.delete(customer2.getId());
         try (var session = sessionFactory.openSession()) {
             var transaction = session.beginTransaction();
@@ -141,7 +141,7 @@ class CustomerRepositoryTest {
 
     @Test
     void wid() {
-        Customer customer = new Customer(0,200,"mojib","12",12,"aa","bir");
+        Customer customer = new Customer(0,"mojib","12",12,"C",20,"ir");
         customerRepository.add(customer);
         System.out.println(customer.getId());
         customerRepository.wid(customer.getId(),200);

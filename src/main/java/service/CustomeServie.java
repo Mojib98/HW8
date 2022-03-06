@@ -44,7 +44,7 @@ private int id;
         System.out.println("please insert your address");
         String address = scanner.next();
         int id = random.ints(4, 100, 200).findFirst().getAsInt();
-        customer = new Customer(id,10000,name,national,password,"CUSTUMER",address);
+        customer = new Customer(id,name,national,password,"CUSTUMER",100,address);
        return customerRepository.add(customer);
         } catch(Exception e){
             e.printStackTrace();

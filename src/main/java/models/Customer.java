@@ -16,14 +16,14 @@ import javax.persistence.Id;
 @Getter
 @Entity
 public class Customer extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
+    public Customer(int id, String fullName, String nationalId, int password, String typeUser, float budget, String address) {
+        super(id, fullName, nationalId, password, typeUser);
+        this.budget = budget;
+        this.address = address;
+    }
+
     private float budget;
-    private String fullName;
-    private String nationalId;
-    private int password;
-    private String typeUser;
     private String address;
 
 

@@ -61,7 +61,7 @@ public class CustomerRepository implements Repository<Customer> {
             String type=resultSet.getString(6);
             String addres=resultSet.getString(7);
             float budget=resultSet.getFloat(8);
-            custumer = new Customer(id,budget,name,nationalId,password,type,addres);
+            custumer = new Customer(id,name,nationalId,password,type,budget,addres);
             list.add(custumer);
         }
         return list;
